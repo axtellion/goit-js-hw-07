@@ -6,9 +6,10 @@ console.log(galleryItems);
 const gallery = document.querySelector(".gallery")
 
 
-const galleryEl = galleryItems.map(foto => {
-    return `<a class="gallery__item"><img class="gallery__image" src=" ${foto.preview}" data-source="${foto.original} alt="${foto.description}"/></a>`
+const galleryEl = galleryItems.map(({original, preview, description}) => {
+    return `<a class="gallery__item" href="${original}"><img class="gallery__image" src="${preview}" data-source="${original}" alt="${description}" /></a>`
 }).join("");
+
 gallery.insertAdjacentHTML("afterbegin", galleryEl);
 
 gallery.addEventListener("click", openImg)
@@ -23,7 +24,7 @@ function openImg(event) {
     const largeImgLink = event.target.dataset.source;
     
     const instance = basicLightbox.create(`
-    <img src="${largeImgLink}" alt="${event.target.alt}">`)
+    <img src="${largeImgLink}">`)
 
 instance.show()
 };
